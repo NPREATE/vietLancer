@@ -12,7 +12,7 @@ const ProjectPosting = () => {
         title: '',
         description: '',
         budget: '',
-        duration: '',
+        
         paymentMethod: '',
         workFormat: '',
         category: '',
@@ -158,11 +158,7 @@ const ProjectPosting = () => {
         
         if (!projectData.budget || projectData.budget <= 0) newErrors.budget = 'Ngân sách phải lớn hơn 0';
         else if (projectData.budget > 100000000000) newErrors.budget = 'Ngân sách không được vượt quá 100 tỷ VND';
-        
-        if (!projectData.duration) newErrors.duration = 'Thời gian thực hiện là bắt buộc';
-        else if (projectData.duration < 1) newErrors.duration = 'Thời gian phải ít nhất 1 ngày';
-        else if (projectData.duration > 365) newErrors.duration = 'Thời gian không được vượt quá 365 ngày';
-        
+       
         if (!projectData.category) newErrors.category = 'Danh mục là bắt buộc';
         
         // ✅ Validation cho phương thức thanh toán
@@ -216,7 +212,7 @@ const ProjectPosting = () => {
                     title: '',
                     description: '',
                     budget: '',
-                    duration: '',
+                   
                     paymentMethod: '',
                     workFormat: '',
                     category: '',
@@ -287,39 +283,7 @@ const ProjectPosting = () => {
                     <small style={styles.helpText}>Ít nhất 20 ký tự</small>
                 </div>
 
-                <div style={styles.formRow}>
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Ngân sách (VND) </label>
-                        <input
-                            type="number"
-                            name="budget"
-                            value={projectData.budget}
-                            onChange={handleChange}
-                            placeholder="Nhập ngân sách"
-                            min="1000000"
-                            max="1000000000"
-                            style={{...styles.input, ...(errors.budget ? styles.error : {})}}
-                        />
-                        {errors.budget && <span style={styles.errorMessage}>{errors.budget}</span>}
-                        <small style={styles.helpText}>Tối thiểu 1 triệu VND</small>
-                    </div>
-
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Thời gian (ngày) </label>
-                        <input
-                            type="number"
-                            name="duration"
-                            value={projectData.duration}
-                            onChange={handleChange}
-                            placeholder="Số ngày thực hiện"
-                            min="1"
-                            max="365"
-                            style={{...styles.input, ...(errors.duration ? styles.error : {})}}
-                        />
-                        {errors.duration && <span style={styles.errorMessage}>{errors.duration}</span>}
-                        <small style={styles.helpText}>Tối đa 1 năm</small>
-                    </div>
-                </div>
+                
 
                 {/* ✅ Hàng cho phương thức thanh toán và hình thức làm việc */}
                 <div style={styles.formRow}>
@@ -358,6 +322,25 @@ const ProjectPosting = () => {
                         </select>
                         {errors.workFormat && <span style={styles.errorMessage}>{errors.workFormat}</span>}
                     </div>
+                </div>
+                <div style={styles.formRow}>
+                    <div style={styles.formGroup}>
+                        <label style={styles.label}>Ngân sách (VND) </label>
+                        <input
+                            type="number"
+                            name="budget"
+                            value={projectData.budget}
+                            onChange={handleChange}
+                            placeholder="Nhập ngân sách"
+                            min="1000000"
+                            max="1000000000"
+                            style={{...styles.input, ...(errors.budget ? styles.error : {})}}
+                        />
+                        {errors.budget && <span style={styles.errorMessage}>{errors.budget}</span>}
+                        <small style={styles.helpText}>Tối thiểu 1 triệu VND</small>
+                    </div>
+
+                    
                 </div>
 
                 <div style={styles.formGroup}>
