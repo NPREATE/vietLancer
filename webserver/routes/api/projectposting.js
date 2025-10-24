@@ -7,7 +7,7 @@ const __fileName = fileURLToPath(import.meta.url);
 const __dirName = path.dirname(__fileName);
 const router = express.Router();
 
-const PROJECTS_FILE = path.join(__dirName, '../../data/projects.json');
+const PROJECTS_FILE = path.join(__dirName, '../../data/project.json');
 
 // Helper functions để đọc/ghi file JSON
 const readProjectsData = async () => {
@@ -39,7 +39,6 @@ router.post('/projects', async (req, res) => {
             title, 
             description, 
             budget, 
-            duration, 
             category, 
             skills,
             paymentMethod,
@@ -71,12 +70,7 @@ router.post('/projects', async (req, res) => {
             });
         }
 
-        if (!duration) {
-            return res.status(400).json({
-                success: false,
-                message: 'Vui lòng nhập thời gian thực hiện'
-            });
-        }
+    
 
         if (!category) {
             return res.status(400).json({
@@ -131,19 +125,7 @@ router.post('/projects', async (req, res) => {
 
        
 
-        if (duration < 1) {
-            return res.status(400).json({
-                success: false,
-                message: 'Thời gian thực hiện phải ít nhất 1 ngày'
-            });
-        }
-
-        if (duration > 365) {
-            return res.status(400).json({
-                success: false,
-                message: 'Thời gian thực hiện không được vượt quá 365 ngày'
-            });
-        }
+       
 
         // Đọc dữ liệu hiện tại
         const data = await readProjectsData();
@@ -154,7 +136,6 @@ router.post('/projects', async (req, res) => {
             title: title.trim(),
             description: description.trim(),
             budget: parseInt(budget),
-            duration: parseInt(duration),
             category,
             skills: Array.isArray(skills) ? skills : [],
             paymentMethod, // ✅ THÊM: Phương thức thanh toán
@@ -162,9 +143,6 @@ router.post('/projects', async (req, res) => {
             status: 'pending',
             clientId: clientId || 'unknown',
             clientName: clientName || 'Khách hàng',
-            clientEmail: clientEmail || '',
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
             };
 
         console.log(' Tạo project mới:', newProject.title);
